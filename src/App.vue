@@ -32,8 +32,16 @@ export default {
         project: 'Git Bisect Workshop',
         done: false,
       }, {
+        title: 'Find the commit when the bug was injected',
+        project: 'Git Bisect Workshop: Exercise 1',
+        done: false,
+      }, {
         title: 'Go to exercise-2 branch',
         project: 'Git Bisect Workshop',
+        done: false,
+      }, {
+        title: 'Find the commit when the bug was injected',
+        project: 'Git Bisect Workshop: Exercise 2',
         done: false,
       }],
     };
