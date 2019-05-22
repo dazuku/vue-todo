@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <h1 class="ui dividing centered header">Git Bisect Example</h1>
+    <h1 class="ui dividing centered header main-title">Git Bisect Example</h1>
     <div class='ui three column centered grid'>
       <div class='column'>
         <todo-list v-bind:todos="todos"></todo-list>
@@ -54,3 +54,11 @@ export default {
   },
 };
 </script>
+
+<style scoped>
+  h1.main-title {
+    padding: 3rem;
+    background-color: #21BA45;
+    color: white;
+  }
+</style>
