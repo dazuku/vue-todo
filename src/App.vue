@@ -24,20 +24,16 @@ export default {
   data() {
     return {
       todos: [{
-        title: 'Todo A',
-        project: 'Project A',
-        done: false,
-      }, {
-        title: 'Todo B',
-        project: 'Project B',
+        title: 'Clone the repo',
+        project: 'Git Bisect Workshop',
         done: true,
       }, {
-        title: 'Todo C',
-        project: 'Project C',
+        title: 'Go to exercise-1 branch',
+        project: 'Git Bisect Workshop',
         done: false,
       }, {
-        title: 'Todo D',
-        project: 'Project D',
+        title: 'Go to exercise-2 branch',
+        project: 'Git Bisect Workshop',
         done: false,
       }],
     };
