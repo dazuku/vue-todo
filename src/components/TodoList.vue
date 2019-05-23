@@ -58,7 +58,6 @@ export default {
 
 <style scoped>
 p.tasks {
-  text-align: center;
   font-size: 2rem;
 }
 p.tasks--completed {

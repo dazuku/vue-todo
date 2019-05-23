@@ -60,5 +60,6 @@ export default {
     padding: 3rem;
     background-color: #21BA45;
     color: white;
+    margin-bottom: 3rem;
   }
 </style>
