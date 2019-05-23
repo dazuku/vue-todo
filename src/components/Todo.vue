@@ -6,8 +6,9 @@
       </div>
       <div class='meta'>
         <div>{{ todo.project }}</div>
-        <div>Created Date: {{ todo.created | moment("calendar") }}</div>
-        <div v-if="!todo.done">Due Date: {{ todo.due | moment("calendar") }}</div>
+        <div>Created Date: {{ created }}</div>
+        <div v-if="!todo.done">Due Date: {{ due }}</div>
+        <div v-else>Completed Date: {{ completed }}</div>
       </div>
       <div class='extra content'>
           <span class='right floated edit icon' v-on:click="showForm">
@@ -47,12 +48,25 @@
 </template>
 
 <script type="text/javascript">
+  import moment from 'moment';
+
   export default {
     props: ['todo'],
     data() {
       return {
         isEditing: false,
       };
+    },
+    computed: {
+      created() {
+        return moment(this.todo.created).format('LL');
+      },
+      due() {
+        return moment(this.todo.due).format('LL');
+      },
+      completed() {
+        return this.todo.created && moment(this.todo.created).format('LL');
+      },
     },
     methods: {
       completeTodo(todo) {

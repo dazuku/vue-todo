@@ -14,6 +14,10 @@
             <label>Project</label>
             <input v-model="projectText" type='text'>
           </div>
+          <div class='field'>
+            <label>Due Date</label>
+            <input v-model="date" type='date'>
+          </div>
           <div class='ui two button attached buttons'>
             <button class='ui basic blue button' v-on:click="sendForm()">
               Create
@@ -35,6 +39,7 @@ export default {
       titleText: '',
       projectText: '',
       isCreating: false,
+      date: new Date(),
     };
   },
   methods: {
@@ -48,9 +53,13 @@ export default {
       if (this.titleText.length > 0 && this.projectText.length > 0) {
         const title = this.titleText;
         const project = this.projectText;
+        const due = this.date;
+        const created = new Date();
         this.$emit('create-todo', {
           title,
           project,
+          due,
+          created,
           done: false,
         });
         this.titleText = '';

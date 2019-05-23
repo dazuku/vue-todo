@@ -3,11 +3,11 @@
     <div class="ui two column divided grid">
       <div class="column">
         <p class="tasks tasks--completed">Completed Tasks: {{completedTodos.length}}</p>
-        <todo v-on:delete-todo="deleteTodo" v-on:complete-todo="completeTodo" v-for="todo in completedTodos" :key="todo.title" :todo.sync="todo" />
+        <todo v-on:delete-todo="deleteTodo" v-on:complete-todo="completeTodo" v-for="todo in completedTodos" :key="todo.id" :todo.sync="todo" />
       </div>
       <div class="column">
         <p class="tasks tasks--pending">Pending Tasks: {{pendingTodos.length}}</p>
-        <todo v-on:delete-todo="deleteTodo" v-on:complete-todo="completeTodo" v-for="todo in pendingTodos" :key="todo.title" :todo.sync="todo" />
+        <todo v-on:delete-todo="deleteTodo" v-on:complete-todo="completeTodo" v-for="todo in pendingTodos" :key="todo.id" :todo.sync="todo" />
       </div>
     </div>
   </div>

@@ -23,37 +23,48 @@ export default {
   },
   data() {
     const today = new Date();
+    const yesterday = new Date();
+    const tomorrow = new Date();
+
+    tomorrow.setDate(today.getDate() + 1);
+    yesterday.setDate(today.getDate() - 1);
     return {
       todos: [{
         title: 'Clone the repo',
         project: 'Git Bisect Workshop',
-        created: today,
-        due: new Date().setDate(today.getDate() + 1),
+        created: yesterday,
+        due: tomorrow,
         done: true,
+        completed: today,
+        id: 1,
       }, {
         title: 'Go to exercise-1 branch',
         project: 'Git Bisect Workshop',
-        created: today,
-        due: new Date().setDate(today.getDate() + 1),
+        created: yesterday,
+        due: tomorrow,
         done: false,
+        id: 2,
       }, {
         title: 'Find the commit when the bug was injected',
         project: 'Git Bisect Workshop: Exercise 1',
-        created: today,
-        due: new Date().setDate(today.getDate() + 1),
+        created: yesterday,
+        due: tomorrow,
         done: false,
+        id: 3,
       }, {
         title: 'Go to exercise-2 branch',
         project: 'Git Bisect Workshop',
-        created: today,
-        due: new Date().setDate(today.getDate() + 1),
+        created: yesterday,
+        due: tomorrow,
         done: false,
+        id: 4,
       }, {
         title: 'Find the commit when the bug was injected',
         project: 'Git Bisect Workshop: Exercise 2',
-        created: today,
-        due: new Date().setDate(today.getDate() + 1),
+        created: yesterday,
+        due: tomorrow,
         done: false,
+        id: 5,
       }],
     };
   },
