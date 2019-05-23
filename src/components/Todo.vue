@@ -41,13 +41,13 @@
       </div>
     </div>
     <div class="custom-button">
-      <div class='ui bottom attached green basic button' v-if="!isEditing && type === 'completed'" disabled>
+      <div class='ui bottom attached green basic button' v-if="!isEditing && isCompleted()" disabled>
           Completed
       </div>
-      <div class='ui bottom attached red basic button' v-on:click="completeTodo(todo)" v-if="!isEditing && type === 'pending'">
+      <div class='ui bottom attached red basic button' v-on:click="completeTodo(todo)" v-if="!isEditing && isPending()">
           Pending
       </div>
-      <div class='ui bottom attached gray basic button' v-on:click="recoverTodo(todo)" v-if="!isEditing && type === 'deleted'">
+      <div class='ui bottom attached gray basic button' v-on:click="recoverTodo(todo)" v-if="!isEditing && isDeleted()">
           Recover
       </div>
     </div>
@@ -84,6 +84,27 @@
       },
     },
     methods: {
+      isCompleted() {
+        if (this.type === 'all') {
+          return this.todo.done && !this.todo.deleted;
+        }
+
+        return this.type === 'completed';
+      },
+      isPending() {
+        if (this.type === 'all') {
+          return !this.todo.done && !this.todo.deleted;
+        }
+
+        return this.type === 'pending';
+      },
+      isDeleted() {
+        if (this.type === 'all') {
+          return this.todo.deleted;
+        }
+
+        return this.type === 'deleted';
+      },
       completeTodo(todo) {
         this.$emit('complete-todo', todo);
       },
