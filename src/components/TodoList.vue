@@ -72,7 +72,7 @@ export default {
           type: 'deleted',
         },
         {
-          title: 'Show all',
+          title: 'All Tasks',
           class: 'tasks--all',
           field: 'todos',
           type: 'all',
