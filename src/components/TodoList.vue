@@ -50,6 +50,7 @@ export default {
     completeTodo(todo) {
       const todoIndex = this.todos.indexOf(todo);
       this.todos[todoIndex].done = true;
+      this.todos[todoIndex].completed = new Date();
       sweetalert('Success!', 'To-Do completed!', 'success');
     },
   },

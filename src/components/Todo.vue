@@ -65,7 +65,7 @@
         return moment(this.todo.due).format('LL');
       },
       completed() {
-        return this.todo.created && moment(this.todo.created).format('LL');
+        return this.todo.created && moment(this.todo.completed).format('LL');
       },
     },
     methods: {
