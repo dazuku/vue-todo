@@ -70,7 +70,7 @@ export default {
   },
   methods: {
     createTodo(newTodo) {
-      console.log('new Todo', newTodo);
+      this.todos.push(newTodo);
       sweetalert('Success!', 'To-Do created!', 'success');
     },
   },
