@@ -71,6 +71,12 @@ export default {
           field: 'completedTodos',
           type: 'deleted',
         },
+        {
+          title: 'Show all',
+          class: 'tasks--all',
+          field: 'todos',
+          type: 'all',
+        },
       ],
     };
   },
