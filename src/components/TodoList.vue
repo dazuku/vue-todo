@@ -2,11 +2,11 @@
   <div>
     <div class="ui two column divided grid">
       <div class="column">
-        <p class="tasks">Completed Tasks: {{completedTodos.length}}</p>
+        <p class="tasks tasks--completed">Completed Tasks: {{completedTodos.length}}</p>
         <todo v-on:delete-todo="deleteTodo" v-on:complete-todo="completeTodo" v-for="todo in completedTodos" :key="todo.title" :todo.sync="todo" />
       </div>
       <div class="column">
-        <p class="tasks">Pending Tasks: {{pendingTodos.length}}</p>
+        <p class="tasks tasks--pending">Pending Tasks: {{pendingTodos.length}}</p>
         <todo v-on:delete-todo="deleteTodo" v-on:complete-todo="completeTodo" v-for="todo in pendingTodos" :key="todo.title" :todo.sync="todo" />
       </div>
     </div>
@@ -59,6 +59,13 @@ export default {
 <style scoped>
 p.tasks {
   text-align: center;
+  font-size: 2rem;
+}
+p.tasks--completed {
+  color: #21BA45;
+}
+p.tasks--pending {
+  color: #DB2828;
 }
 </style>
 
