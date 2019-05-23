@@ -1,8 +1,15 @@
 <template>
   <div>
-    <p class="tasks">Completed Tasks: {{todos.filter(todo => {return todo.done === true}).length}}</p>
-    <p class="tasks">Pending Tasks: {{todos.filter(todo => {return todo.done === false}).length}}</p>
-    <todo v-on:delete-todo="deleteTodo" v-on:complete-todo="completeTodo" v-for="todo in todos" :todo.sync="todo"></todo>
+    <div class="ui two column divided grid">
+      <div class="column">
+        <p class="tasks">Completed Tasks: {{completedTodos.length}}</p>
+        <todo v-on:delete-todo="deleteTodo" v-on:complete-todo="completeTodo" v-for="todo in completedTodos" :key="todo.title" :todo.sync="todo" />
+      </div>
+      <div class="column">
+        <p class="tasks">Pending Tasks: {{pendingTodos.length}}</p>
+        <todo v-on:delete-todo="deleteTodo" v-on:complete-todo="completeTodo" v-for="todo in pendingTodos" :key="todo.title" :todo.sync="todo" />
+      </div>
+    </div>
   </div>
 </template>
 
@@ -14,6 +21,14 @@ export default {
   props: ['todos'],
   components: {
     Todo,
+  },
+  computed: {
+    completedTodos() {
+      return this.todos.filter(todo => todo.done);
+    },
+    pendingTodos() {
+      return this.todos.filter(todo => !todo.done);
+    },
   },
   methods: {
     deleteTodo(todo) {
