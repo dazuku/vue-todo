@@ -1,8 +1,7 @@
 <template>
   <div>
     <div class="ui one column divided grid">
-      </div>
-        <div class="column">
+      <div class="column">
         <div class="dropdown-container">
           <div class="ui dropdown" @click="toggleDropdown">
             <div class="text">{{selectedStep.title}}</div>

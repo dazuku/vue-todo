@@ -1,7 +1,12 @@
 <template>
-    <div>This is the First time UX</div>
+  <div>
+    <div class="ui one column divided grid">
+      <div class="column">
+        <p>Hi! before you start to use this app, we want to know your name and some information about you.</p>
+      </div>
+    </div>
+  </div>
 </template>
 <script>
-export default {
-};
+export default {};
 </script>
