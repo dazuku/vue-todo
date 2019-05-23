@@ -2,11 +2,17 @@
   <div id="app">
     <h1 class="ui dividing centered header main-title">Git Bisect Example</h1>
     <div class='ui three column centered grid'>
-      <div class='column' v-if="!isFTUX">
+      <div class='column' v-if="user">
+        <div class="ui centered huge header">Hi {{user.nickname || user.name}}!</div>
+        <div class="ui centered header">It's a good day to close pending tasks</div>
+        <div class="ui divider"/>
         <todo-list v-bind:todos="todos"></todo-list>
         <create-todo v-on:create-todo="createTodo"></create-todo>
       </div>
-      <first-time-ux v-else />
+      <first-time-ux
+        @complete-ftux="saveUser"
+        v-else
+      />
     </div>
   </div>
 </template>
@@ -28,11 +34,12 @@ export default {
     const today = new Date();
     const yesterday = new Date();
     const tomorrow = new Date();
+    const userStr = localStorage.getItem('user');
 
     tomorrow.setDate(today.getDate() + 1);
     yesterday.setDate(today.getDate() - 1);
     return {
-      isFTUX: false,
+      user: userStr && JSON.parse(userStr),
       todos: [{
         title: 'Clone the repo',
         project: 'Git Bisect Workshop',
@@ -82,6 +89,10 @@ export default {
     };
   },
   methods: {
+    saveUser(user) {
+      this.user = user;
+      localStorage.setItem('user', JSON.stringify(user));
+    },
     createTodo(newTodo) {
       this.todos.push(newTodo);
       sweetalert('Success!', 'To-Do created!', 'success');

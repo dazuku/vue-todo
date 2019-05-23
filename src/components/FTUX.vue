@@ -32,6 +32,13 @@
 </template>
 <script>
 export default {
+  data() {
+    return {
+      nameText: '',
+      nicknameText: '',
+      mailText: '',
+    };
+  },
   methods: {
     sendForm() {
       this.$emit('complete-ftux', {
