@@ -3,8 +3,13 @@
     <h1 class="ui dividing centered header main-title">Git Bisect Example</h1>
     <div class='ui three column centered grid'>
       <div class='column' v-if="user">
-        <div class="ui centered huge header">Hi {{user.nickname || user.name}}!</div>
-        <div class="ui centered header">It's a good day to close pending tasks</div>
+        <h2 class="ui center aligned icon header">
+          <i class="circular users icon"></i>
+          Hi {{user.nickname || user.name}}!
+        </h2>
+        <h3 class="ui centered header">
+          {{isUsingDefaultTasks ? 'We added automatically some tasks to start' : 'It\'s a good day to close pending tasks'}}
+        </h3>
         <div class="ui divider"/>
         <todo-list v-bind:todos="todos"></todo-list>
         <create-todo v-on:create-todo="createTodo"></create-todo>
@@ -31,16 +36,40 @@ export default {
     FirstTimeUx,
   },
   data() {
-    const today = new Date();
-    const yesterday = new Date();
-    const tomorrow = new Date();
+    const tasksStr = localStorage.getItem('tasks');
     const userStr = localStorage.getItem('user');
+    const todos = tasksStr ? JSON.parse(tasksStr) : this.getDefaultTasks();
 
-    tomorrow.setDate(today.getDate() + 1);
-    yesterday.setDate(today.getDate() - 1);
+    localStorage.setItem('tasks', JSON.stringify(todos));
     return {
+      todos,
       user: userStr && JSON.parse(userStr),
-      todos: [{
+      isUsingDefaultTasks: !tasksStr,
+    };
+  },
+  watch: {
+    todos(val) {
+      localStorage.setItem('tasks', JSON.stringify(val));
+    },
+  },
+  methods: {
+    saveUser(user) {
+      this.user = user;
+      localStorage.setItem('user', JSON.stringify(user));
+    },
+    createTodo(newTodo) {
+      this.todos.push(newTodo);
+      sweetalert('Success!', 'To-Do created!', 'success');
+    },
+    getDefaultTasks() {
+      const today = new Date();
+      const yesterday = new Date();
+      const tomorrow = new Date();
+
+      tomorrow.setDate(today.getDate() + 1);
+      yesterday.setDate(today.getDate() - 1);
+
+      return [{
         title: 'Clone the repo',
         project: 'Git Bisect Workshop',
         created: yesterday,
@@ -85,17 +114,7 @@ export default {
         completed: null,
         id: 5,
         deleted: false,
-      }],
-    };
-  },
-  methods: {
-    saveUser(user) {
-      this.user = user;
-      localStorage.setItem('user', JSON.stringify(user));
-    },
-    createTodo(newTodo) {
-      this.todos.push(newTodo);
-      sweetalert('Success!', 'To-Do created!', 'success');
+      }];
     },
   },
 };
