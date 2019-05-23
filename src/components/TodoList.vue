@@ -94,7 +94,7 @@ export default {
       return this.todos.filter(todo => !todo.done && !todo.deleted);
     },
     deletedTodos() {
-      return this.todos.filter(todo => todo.deleted);
+      return this.todos.filter(todo => todo.deleted && !todo.done);
     },
   },
   methods: {
