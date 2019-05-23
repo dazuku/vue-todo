@@ -22,26 +22,37 @@ export default {
     CreateTodo,
   },
   data() {
+    const today = new Date();
     return {
       todos: [{
         title: 'Clone the repo',
         project: 'Git Bisect Workshop',
+        created: today,
+        due: new Date().setDate(today.getDate() + 1),
         done: true,
       }, {
         title: 'Go to exercise-1 branch',
         project: 'Git Bisect Workshop',
+        created: today,
+        due: new Date().setDate(today.getDate() + 1),
         done: false,
       }, {
         title: 'Find the commit when the bug was injected',
         project: 'Git Bisect Workshop: Exercise 1',
+        created: today,
+        due: new Date().setDate(today.getDate() + 1),
         done: false,
       }, {
         title: 'Go to exercise-2 branch',
         project: 'Git Bisect Workshop',
+        created: today,
+        due: new Date().setDate(today.getDate() + 1),
         done: false,
       }, {
         title: 'Find the commit when the bug was injected',
         project: 'Git Bisect Workshop: Exercise 2',
+        created: today,
+        due: new Date().setDate(today.getDate() + 1),
         done: false,
       }],
     };

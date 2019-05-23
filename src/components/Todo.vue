@@ -1,11 +1,13 @@
 <template>
-  <div class='ui centered card'>
+  <div class='ui centered card todo' :class="todo.done ? 'todo--completed' : 'todo--pending'">
     <div class="content" v-show="!isEditing">
       <div class='header'>
           {{ todo.title }}
       </div>
       <div class='meta'>
-          {{ todo.project }}
+        <div>{{ todo.project }}</div>
+        <div>Created Date: {{ todo.created | moment("calendar") }}</div>
+        <div v-if="!todo.done">Due Date: {{ todo.due | moment("calendar") }}</div>
       </div>
       <div class='extra content'>
           <span class='right floated edit icon' v-on:click="showForm">
@@ -33,11 +35,13 @@
         </div>
       </div>
     </div>
-    <div class='ui bottom attached green basic button' v-show="!isEditing &&todo.done" disabled>
-        Completed
-    </div>
-    <div class='ui bottom attached red basic button' v-on:click="completeTodo(todo)" v-show="!isEditing && !todo.done">
-        Pending
+    <div class="custom-button">
+      <div class='ui bottom attached green basic button' v-show="!isEditing &&todo.done" disabled>
+          Completed
+      </div>
+      <div class='ui bottom attached red basic button' v-on:click="completeTodo(todo)" v-show="!isEditing && !todo.done">
+          Pending
+      </div>
     </div>
   </div>
 </template>
@@ -66,3 +70,15 @@
     },
   };
 </script>
+
+<style scoped>
+  .todo--completed {
+    background-color: #21BA45;
+  }
+  .todo--pending {
+    background-color: #DB2828;
+  }
+  .custom-button {
+    background-color: white;
+  }
+</style>
