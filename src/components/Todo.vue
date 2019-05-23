@@ -71,7 +71,15 @@
     },
     computed: {
       cardClass() {
-        return this.types[this.type];
+        const cardClass = this.types[this.type];
+
+        if (!cardClass) {
+          if (this.isCompleted()) return this.types.completed;
+          if (this.isPending()) return this.types.pending;
+          if (this.isDeleted()) return this.types.deleted;
+        }
+
+        return cardClass;
       },
       created() {
         return moment(this.todo.created).format('LL');
