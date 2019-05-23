@@ -2,10 +2,11 @@
   <div id="app">
     <h1 class="ui dividing centered header main-title">Git Bisect Example</h1>
     <div class='ui three column centered grid'>
-      <div class='column'>
+      <div class='column' v-if="!isFTUX">
         <todo-list v-bind:todos="todos"></todo-list>
         <create-todo v-on:create-todo="createTodo"></create-todo>
       </div>
+      <first-time-ux v-else />
     </div>
   </div>
 </template>
@@ -14,12 +15,14 @@
 import sweetalert from 'sweetalert';
 import TodoList from './components/TodoList';
 import CreateTodo from './components/CreateTodo';
+import FirstTimeUx from './components/FTUX';
 
 export default {
   name: 'app',
   components: {
     TodoList,
     CreateTodo,
+    FirstTimeUx,
   },
   data() {
     const today = new Date();
@@ -29,6 +32,7 @@ export default {
     tomorrow.setDate(today.getDate() + 1);
     yesterday.setDate(today.getDate() - 1);
     return {
+      isFTUX: false,
       todos: [{
         title: 'Clone the repo',
         project: 'Git Bisect Workshop',
