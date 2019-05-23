@@ -1,5 +1,9 @@
 <template>
-  <div class='ui centered card' :class="todo.done ? 'todo--completed' : 'todo--pending'">
+  <div class='ui centered card' :class="{
+      'todo--completed': todo.done,
+      'todo--pending': !todo.done,
+      'todo--deleted': todo.deleted
+    }">
     <div class="content" v-show="!isEditing">
       <div class='header'>
           {{ todo.title }}
@@ -14,7 +18,7 @@
           <span class='right floated edit icon' v-on:click="showForm">
           <i class='edit icon'></i>
         </span>
-        <span class='right floated trash icon' v-on:click="deleteTodo(todo)">
+        <span v-if="!todo.deleted" class='right floated trash icon' v-on:click="deleteTodo(todo)">
           <i class='trash icon'></i>
         </span>
       </div>
@@ -41,11 +45,14 @@
       </div>
     </div>
     <div class="custom-button">
-      <div class='ui bottom attached green basic button' v-show="!isEditing &&todo.done" disabled>
+      <div class='ui bottom attached green basic button' v-show="!isEditing &&todo.done && !todo.deleted" disabled>
           Completed
       </div>
-      <div class='ui bottom attached red basic button' v-on:click="completeTodo(todo)" v-show="!isEditing && !todo.done">
+      <div class='ui bottom attached red basic button' v-on:click="completeTodo(todo)" v-show="!isEditing && !todo.done && !todo.deleted">
           Pending
+      </div>
+      <div class='ui bottom attached gray basic button' v-on:click="recoverTodo(todo)" v-show="!isEditing && todo.deleted">
+          Recover
       </div>
     </div>
   </div>
@@ -79,6 +86,9 @@
       deleteTodo(todo) {
         this.$emit('delete-todo', todo);
       },
+      recoverTodo(todo) {
+        this.$emit('recover-todo', todo);
+      },
       showForm() {
         this.isEditing = true;
       },
@@ -95,6 +105,9 @@
   }
   .todo--pending {
     border: #DB2828 solid 1px;
+  }
+  .todo--deleted {
+    border: #aaa solid 1px;
   }
   .custom-button {
     background-color: white;

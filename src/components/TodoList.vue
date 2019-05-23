@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="ui two column divided grid">
+    <div class="ui three column divided grid">
       <div class="column">
         <p class="tasks tasks--completed">Completed Tasks: {{completedTodos.length}}</p>
         <todo v-on:delete-todo="deleteTodo" v-on:complete-todo="completeTodo" v-for="todo in completedTodos" :key="todo.id" :todo.sync="todo" />
@@ -8,6 +8,17 @@
       <div class="column">
         <p class="tasks tasks--pending">Pending Tasks: {{pendingTodos.length}}</p>
         <todo v-on:delete-todo="deleteTodo" v-on:complete-todo="completeTodo" v-for="todo in pendingTodos" :key="todo.id" :todo.sync="todo" />
+      </div>
+      <div class="column">
+        <p class="tasks tasks--deleted">Deleted Tasks: {{deletedTodos.length}}</p>
+        <todo
+          v-on:recover-todo="recoverTodo"
+          v-on:delete-todo="deleteTodo"
+          v-on:complete-todo="completeTodo"
+          v-for="todo in deletedTodos"
+          :key="todo.id"
+          :todo.sync="todo"
+        />
       </div>
     </div>
   </div>
@@ -24,10 +35,13 @@ export default {
   },
   computed: {
     completedTodos() {
-      return this.todos.filter(todo => todo.done);
+      return this.todos.filter(todo => todo.done && !todo.deleted);
     },
     pendingTodos() {
-      return this.todos.filter(todo => !todo.done);
+      return this.todos.filter(todo => !todo.done && !todo.deleted);
+    },
+    deletedTodos() {
+      return this.todos.filter(todo => todo.deleted);
     },
   },
   methods: {
@@ -43,9 +57,15 @@ export default {
       },
       () => {
         const todoIndex = this.todos.indexOf(todo);
-        this.todos.splice(todoIndex, 1);
+        this.todos[todoIndex].deleted = true;
+        // this.todos.splice(todoIndex, 1);
         sweetalert('Deleted!', 'Your To-Do has been deleted.', 'success');
       });
+    },
+    recoverTodo(todo) {
+      const todoIndex = this.todos.indexOf(todo);
+      this.todos[todoIndex].deleted = false;
+      sweetalert('Success!', 'To-Do recovered!', 'success');
     },
     completeTodo(todo) {
       const todoIndex = this.todos.indexOf(todo);
@@ -66,6 +86,9 @@ p.tasks--completed {
 }
 p.tasks--pending {
   color: #DB2828;
+}
+p.tasks--deleted {
+  color: #AAA;
 }
 </style>
 

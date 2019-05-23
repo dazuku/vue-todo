@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <h1 class="ui dividing centered header main-title">Git Bisect Example</h1>
-    <div class='ui three column centered grid'>
+    <div class='ui two column centered grid'>
       <div class='column'>
         <todo-list v-bind:todos="todos"></todo-list>
         <create-todo v-on:create-todo="createTodo"></create-todo>
@@ -37,34 +37,43 @@ export default {
         done: true,
         completed: today,
         id: 1,
+        deleted: false,
       }, {
         title: 'Go to exercise-1 branch',
         project: 'Git Bisect Workshop',
         created: yesterday,
         due: tomorrow,
         done: false,
+        completed: null,
         id: 2,
+        deleted: false,
       }, {
         title: 'Find the commit when the bug was injected',
         project: 'Git Bisect Workshop: Exercise 1',
         created: yesterday,
         due: tomorrow,
         done: false,
+        completed: null,
         id: 3,
+        deleted: false,
       }, {
         title: 'Go to exercise-2 branch',
         project: 'Git Bisect Workshop',
         created: yesterday,
         due: tomorrow,
         done: false,
+        completed: null,
         id: 4,
+        deleted: false,
       }, {
         title: 'Find the commit when the bug was injected',
         project: 'Git Bisect Workshop: Exercise 2',
         created: yesterday,
         due: tomorrow,
         done: false,
+        completed: null,
         id: 5,
+        deleted: false,
       }],
     };
   },
