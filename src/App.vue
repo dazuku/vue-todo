@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <h1 class="ui dividing centered header main-title">Git Bisect Example</h1>
-    <div class='ui two column centered grid'>
+    <div class='ui three column centered grid'>
       <div class='column'>
         <todo-list v-bind:todos="todos"></todo-list>
         <create-todo v-on:create-todo="createTodo"></create-todo>

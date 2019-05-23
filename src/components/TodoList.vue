@@ -1,21 +1,31 @@
 <template>
   <div>
-    <div class="ui three column divided grid">
-      <div class="column">
-        <p class="tasks tasks--completed">Completed Tasks: {{completedTodos.length}}</p>
-        <todo v-on:delete-todo="deleteTodo" v-on:complete-todo="completeTodo" v-for="todo in completedTodos" :key="todo.id" :todo.sync="todo" />
+    <div class="ui one column divided grid">
       </div>
-      <div class="column">
-        <p class="tasks tasks--pending">Pending Tasks: {{pendingTodos.length}}</p>
-        <todo v-on:delete-todo="deleteTodo" v-on:complete-todo="completeTodo" v-for="todo in pendingTodos" :key="todo.id" :todo.sync="todo" />
-      </div>
-      <div class="column">
-        <p class="tasks tasks--deleted">Deleted Tasks: {{deletedTodos.length}}</p>
+        <div class="column">
+        <div class="dropdown-container">
+          <div class="ui dropdown" @click="toggleDropdown">
+            <div class="text">{{selectedStep.title}}</div>
+            <i class="dropdown icon"></i>
+            <div class="menu" :style="{ display: showDropdown ? 'block' : 'none' }">
+              <div
+                class="item"
+                v-for="(step, index) in config"
+                :key="index"
+                @click.stop="selectStep(index)"
+              >
+                {{step.title}}
+              </div>
+            </div>
+          </div>
+        </div>
+        <p class="tasks" :class="selectedStep.class">{{selectedStep.title}}: {{selectedTodos.length}}</p>
         <todo
           v-on:recover-todo="recoverTodo"
           v-on:delete-todo="deleteTodo"
           v-on:complete-todo="completeTodo"
-          v-for="todo in deletedTodos"
+          v-for="todo in selectedTodos"
+          :type.sync="selectedStep.type"
           :key="todo.id"
           :todo.sync="todo"
         />
@@ -33,7 +43,44 @@ export default {
   components: {
     Todo,
   },
+  data() {
+    return {
+      showDropdown: false,
+      selectedIndex: 0,
+      steps: [
+        'completedTodos',
+        'pendingTodos',
+        'deletedTodos',
+      ],
+      config: [
+        {
+          title: 'Completed Tasks',
+          class: 'tasks--completed',
+          field: 'completedTodos',
+          type: 'completed',
+        },
+        {
+          title: 'Pending Tasks',
+          class: 'tasks--pending',
+          field: 'pendingTodos',
+          type: 'pending',
+        },
+        {
+          title: 'Deleted Tasks',
+          class: 'tasks--deleted',
+          field: 'completedTodos',
+          type: 'deleted',
+        },
+      ],
+    };
+  },
   computed: {
+    selectedStep() {
+      return this.config[this.selectedIndex];
+    },
+    selectedTodos() {
+      return this[this.selectedStep.field];
+    },
     completedTodos() {
       return this.todos.filter(todo => todo.done && !todo.deleted);
     },
@@ -45,6 +92,13 @@ export default {
     },
   },
   methods: {
+    toggleDropdown() {
+      this.showDropdown = true;
+    },
+    selectStep(index) {
+      this.selectedIndex = index;
+      this.showDropdown = false;
+    },
     deleteTodo(todo) {
       sweetalert({
         title: 'Are you sure?',
@@ -80,6 +134,7 @@ export default {
 <style scoped>
 p.tasks {
   font-size: 2rem;
+  text-align: center;
 }
 p.tasks--completed {
   color: #21BA45;
@@ -89,6 +144,11 @@ p.tasks--pending {
 }
 p.tasks--deleted {
   color: #AAA;
+}
+.dropdown-container {
+  display: flex;
+  justify-content: center;
+  padding: 1rem;
 }
 </style>
 

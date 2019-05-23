@@ -1,9 +1,5 @@
 <template>
-  <div class='ui centered card' :class="{
-      'todo--completed': todo.done,
-      'todo--pending': !todo.done,
-      'todo--deleted': todo.deleted
-    }">
+  <div class='ui centered card' :class="cardClass">
     <div class="content" v-show="!isEditing">
       <div class='header'>
           {{ todo.title }}
@@ -45,13 +41,13 @@
       </div>
     </div>
     <div class="custom-button">
-      <div class='ui bottom attached green basic button' v-show="!isEditing &&todo.done && !todo.deleted" disabled>
+      <div class='ui bottom attached green basic button' v-if="!isEditing && type === 'completed'" disabled>
           Completed
       </div>
-      <div class='ui bottom attached red basic button' v-on:click="completeTodo(todo)" v-show="!isEditing && !todo.done && !todo.deleted">
+      <div class='ui bottom attached red basic button' v-on:click="completeTodo(todo)" v-if="!isEditing && type === 'pending'">
           Pending
       </div>
-      <div class='ui bottom attached gray basic button' v-on:click="recoverTodo(todo)" v-show="!isEditing && todo.deleted">
+      <div class='ui bottom attached gray basic button' v-on:click="recoverTodo(todo)" v-if="!isEditing && type === 'deleted'">
           Recover
       </div>
     </div>
@@ -62,13 +58,21 @@
   import moment from 'moment';
 
   export default {
-    props: ['todo'],
+    props: ['todo', 'type'],
     data() {
       return {
         isEditing: false,
+        types: {
+          completed: 'todo--completed',
+          pending: 'todo--pending',
+          deleted: 'todo--deleted',
+        },
       };
     },
     computed: {
+      cardClass() {
+        return this.types[this.type];
+      },
       created() {
         return moment(this.todo.created).format('LL');
       },
