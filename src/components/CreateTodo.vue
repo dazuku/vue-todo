@@ -60,6 +60,7 @@ export default {
           project,
           due,
           created,
+          deleted: false,
           done: false,
         });
         this.titleText = '';
