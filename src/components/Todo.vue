@@ -1,5 +1,5 @@
 <template>
-  <div class='ui centered card todo' :class="todo.done ? 'todo--completed' : 'todo--pending'">
+  <div class='ui centered card' :class="todo.done ? 'todo--completed' : 'todo--pending'">
     <div class="content" v-show="!isEditing">
       <div class='header'>
           {{ todo.title }}
@@ -73,12 +73,13 @@
 
 <style scoped>
   .todo--completed {
-    background-color: #21BA45;
+    border: #21BA45 solid 1px;
   }
   .todo--pending {
-    background-color: #DB2828;
+    border: #DB2828 solid 1px;
   }
   .custom-button {
     background-color: white;
+    padding: 1rem;
   }
 </style>
